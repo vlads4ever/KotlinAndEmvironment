@@ -29,8 +29,8 @@ fun addPerson(userCommand: List<String>) {
         if (checkNumberFormat(userCommand[3])) {
             println(
                 "Person added:\n " +
-                        "Name: ${userCommand[1]}\n " +
-                        "Phone number: ${userCommand[3]}"
+                "Name: ${userCommand[1]}\n " +
+                "Phone number: ${userCommand[3]}"
             )
         } else println("Wrong phone format")
     }
@@ -38,8 +38,8 @@ fun addPerson(userCommand: List<String>) {
         if (checkEmailFormat(userCommand[3])) {
             println(
                 "Person added:\n " +
-                        "Name: ${userCommand[1]}\n " +
-                        "Email: ${userCommand[3]}"
+                "Name: ${userCommand[1]}\n " +
+                "Email: ${userCommand[3]}"
             )
         } else println("Wrong email format")
 }
