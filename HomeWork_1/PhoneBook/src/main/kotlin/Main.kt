@@ -15,10 +15,10 @@
 fun main(args: Array<String>) {
     while (true) {
         val userCommand = readln().split(" ")
-        when {
-            userCommand[0] == "exit" -> return
-            userCommand[0] == "add" -> addPerson(userCommand)
-            userCommand[0] == "help" -> printHelp()
+        when (userCommand[0]) {
+            "exit" -> return
+            "add" -> addPerson(userCommand)
+            "help" -> printHelp()
             else -> println("Wrong command")
         }
     }
