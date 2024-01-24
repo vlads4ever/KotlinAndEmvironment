@@ -1,5 +1,7 @@
 package org.example
 
+import com.sun.tools.javac.Main
+
 sealed interface Command {
     fun isValid(): Boolean
 
@@ -10,15 +12,14 @@ sealed interface Command {
         override fun isValid(): Boolean =
             email.matches(Regex("""[a-z0-9]+@[a-z]+\.[a-z]{2,3}"""))
 
-        fun getPerson(): Person? {
+        fun getPerson(): Person? =
             if (isValid()) {
-                return Person(name,null, email)
+                Person(name,null, email)
             } else {
                 println("Wrong email format")
                 Help.printHelp()
-                return null
+                null
             }
-        }
     }
 
     class AddPhone(
@@ -28,33 +29,26 @@ sealed interface Command {
         override fun isValid(): Boolean =
             phone.matches(Regex("""(\+7|8)[\s(]*\d{3}[)\s]*\d{3}[\s-]?\d{2}[\s-]?\d{2}"""))
 
-        fun getPerson(): Person? {
+        fun getPerson(): Person? =
             if (isValid()) {
-                return Person(name,phone, null)
+                Person(name,phone, null)
             } else {
                 println("Wrong phone number format")
                 Help.printHelp()
-                return null
+                null
             }
-        }
     }
 
     data object Show : Command {
-        override fun isValid(): Boolean {
-            TODO("Not yet implemented")
-        }
+        override fun isValid(): Boolean = true
     }
 
     data object Exit : Command {
-        override fun isValid(): Boolean {
-            TODO("Not yet implemented")
-        }
+        override fun isValid(): Boolean = true
     }
 
     data object Help : Command {
-        override fun isValid(): Boolean {
-            TODO("Not yet implemented")
-        }
+        override fun isValid(): Boolean = true
 
         fun printHelp() {
             println(

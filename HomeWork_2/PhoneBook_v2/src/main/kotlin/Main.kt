@@ -47,7 +47,7 @@ fun readCommand(userCommand: List<String>): Command? =
 
 fun runCommand(userCommand: List<String>): Boolean {
     when (val parsedCommand = readCommand(userCommand)) {
-        null -> println("Wrong add command format")
+        null -> println("Wrong command")
         is Command.Exit -> return false
         is Command.AddEmail ->
             if (parsedCommand.getPerson() != null) {
