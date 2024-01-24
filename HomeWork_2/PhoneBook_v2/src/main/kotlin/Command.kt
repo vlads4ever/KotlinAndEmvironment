@@ -21,8 +21,9 @@ sealed interface Command {
         }
     }
 
-    class AddPhone(private val name: String,
-                   private val phone: String
+    class AddPhone(
+        private val name: String,
+        private val phone: String
     ): Command {
         override fun isValid(): Boolean =
             phone.matches(Regex("""(\+7|8)[\s(]*\d{3}[)\s]*\d{3}[\s-]?\d{2}[\s-]?\d{2}"""))
