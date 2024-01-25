@@ -40,7 +40,7 @@ fun readCommand(userCommand: List<String>): Command? =
                     Command.AddEmail(userCommand[1], userCommand[3])
                 } else null
         "help" -> Command.Help
-        "show" -> Command.Show
+        "show" -> Command.Show(person)
         else -> null
     }
 
@@ -64,12 +64,7 @@ fun runCommand(userCommand: List<String>): Boolean {
                 println("Person was not created")
             }
         is Command.Help -> parsedCommand.printHelp()
-        is Command.Show ->
-            if (person != null) {
-                println(person)
-            } else {
-                println("Not initialized")
-            }
+        is Command.Show -> parsedCommand.printPerson()
     }
     return true
 }

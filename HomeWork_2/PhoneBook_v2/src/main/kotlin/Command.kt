@@ -39,8 +39,12 @@ sealed interface Command {
             }
     }
 
-    data object Show : Command {
-        override fun isValid(): Boolean = true
+    class Show(private val person: Person?) : Command {
+        override fun isValid(): Boolean = person != null
+
+        fun printPerson() {
+            if (isValid()) println(person) else println("Not initialized")
+        }
     }
 
     data object Exit : Command {
