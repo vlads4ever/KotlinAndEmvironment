@@ -21,7 +21,7 @@ package org.example
  * Если isValid для команды возвращает false, выводим help. Если true, обрабатываем команду внутри when.
  */
 
-var person: Person? = null
+private var person: Person? = null
 
 fun main() {
     var run: Boolean = true
@@ -31,7 +31,7 @@ fun main() {
     }
 }
 
-fun readCommand(userCommand: List<String>): Command? =
+private fun readCommand(userCommand: List<String>): Command? =
     when (userCommand[0]) {
         "exit" -> Command.Exit
         "add" -> if (userCommand[2] == "phone") {
@@ -45,7 +45,7 @@ fun readCommand(userCommand: List<String>): Command? =
     }
 
 
-fun runCommand(userCommand: List<String>): Boolean {
+private fun runCommand(userCommand: List<String>): Boolean {
     when (val parsedCommand = readCommand(userCommand)) {
         null -> println("Wrong command")
         is Command.Exit -> return false

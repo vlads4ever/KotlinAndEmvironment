@@ -1,7 +1,5 @@
 package org.example
 
-import com.sun.tools.javac.Main
-
 sealed interface Command {
     fun isValid(): Boolean
 
@@ -14,7 +12,7 @@ sealed interface Command {
 
         fun getPerson(): Person? =
             if (isValid()) {
-                Person(name,null, email)
+                Person(name = this.name, email = this.email)
             } else {
                 println("Wrong email format")
                 Help.printHelp()
@@ -31,7 +29,7 @@ sealed interface Command {
 
         fun getPerson(): Person? =
             if (isValid()) {
-                Person(name,phone, null)
+                Person(name = this.name, phone = this.phone)
             } else {
                 println("Wrong phone number format")
                 Help.printHelp()
@@ -64,7 +62,7 @@ sealed interface Command {
             add <Имя> email <Адрес электронной почты> - Добавление контакта с электронным адресом
                 Формат email: someone@gmail.com
             show - Вывести последнюю запись
-        """.trimIndent()
+            """.trimIndent()
             )
         }
     }
