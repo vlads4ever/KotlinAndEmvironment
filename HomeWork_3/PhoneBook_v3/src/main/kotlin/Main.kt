@@ -26,17 +26,21 @@ fun main() {
 private fun readCommand(userCommand: List<String>): Command? =
     when (userCommand[0]) {
         "exit" -> Command.Exit
-        "add" -> if (userCommand[2] == "phone") {
-                    Command.AddPhone(name = userCommand[1], phone = userCommand[3], personsList = persons)
-                } else if (userCommand[2] == "email") {
-                    Command.AddEmail(name = userCommand[1], email = userCommand[3], personsList = persons)
+        "add" -> if (userCommand.size > 1) {
+                    if (userCommand[2] == "phone") {
+                        Command.AddPhone(name = userCommand[1], phone = userCommand[3], personsList = persons)
+                    } else if (userCommand[2] == "email") {
+                        Command.AddEmail(name = userCommand[1], email = userCommand[3], personsList = persons)
+                    } else null
                 } else null
         "help" -> Command.Help
-        "show" -> Command.Show(name = userCommand[1], persons)
-        "find" -> if (userCommand[1] == "phone") {
-                    Command.Find(phone = userCommand[2], personsList = persons)
-                } else if (userCommand[1] == "email") {
-                    Command.Find(email = userCommand[2], personsList = persons)
+        "show" -> if (userCommand.size > 1) Command.Show(name = userCommand[1], persons) else null
+        "find" -> if (userCommand.size > 1) {
+                    if (userCommand[1] == "phone") {
+                        Command.Find(phone = userCommand[2], personsList = persons)
+                    } else if (userCommand[1] == "email") {
+                        Command.Find(email = userCommand[2], personsList = persons)
+                    } else null
                 } else null
         else -> null
     }
@@ -44,7 +48,7 @@ private fun readCommand(userCommand: List<String>): Command? =
 
 private fun runCommand(userCommand: List<String>): Boolean {
     when (val parsedCommand = readCommand(userCommand)) {
-        null -> println("Wrong command")
+        null -> { println("Wrong command"); Command.Help.printHelp() }
         is Command.Exit -> return false
         is Command.AddEmail -> parsedCommand.getPerson()
         is Command.AddPhone -> parsedCommand.getPerson()
