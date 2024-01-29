@@ -48,13 +48,13 @@ private fun readCommand(userCommand: List<String>): Command? =
 
 private fun runCommand(userCommand: List<String>): Boolean {
     when (val parsedCommand = readCommand(userCommand)) {
-        null -> { println("Wrong command"); Command.Help.printHelp() }
-        is Command.Exit -> return false
-        is Command.AddEmail -> parsedCommand.getPerson()
-        is Command.AddPhone -> parsedCommand.getPerson()
-        is Command.Help -> parsedCommand.printHelp()
-        is Command.Show -> parsedCommand.printPerson()
-        is Command.Find ->
+        null -> { println("Wrong command"); Help.printHelp() }
+        is Exit -> return false
+        is AddEmail -> parsedCommand.getPerson()
+        is AddPhone -> parsedCommand.getPerson()
+        is Help -> parsedCommand.printHelp()
+        is Show -> parsedCommand.printPerson()
+        is Find ->
             if (parsedCommand.findPersons()?.isNotEmpty() == true)
                 parsedCommand.findPersons()?.map { println(it) }
             else println("No such persons")
