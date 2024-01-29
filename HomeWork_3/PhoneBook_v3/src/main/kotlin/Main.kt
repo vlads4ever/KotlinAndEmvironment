@@ -25,21 +25,21 @@ fun main() {
 
 private fun readCommand(userCommand: List<String>): Command? =
     when (userCommand[0]) {
-        "exit" -> Command.Exit
+        "exit" -> Exit
         "add" -> if (userCommand.size > 3) {
                     if (userCommand[2] == "phone") {
-                        Command.AddPhone(name = userCommand[1], phone = userCommand[3], personsList = persons)
+                        AddPhone(name = userCommand[1], phone = userCommand[3], personsList = persons)
                     } else if (userCommand[2] == "email") {
-                        Command.AddEmail(name = userCommand[1], email = userCommand[3], personsList = persons)
+                        AddEmail(name = userCommand[1], email = userCommand[3], personsList = persons)
                     } else null
                 } else null
-        "help" -> Command.Help
-        "show" -> if (userCommand.size > 1) Command.Show(name = userCommand[1], persons) else null
+        "help" -> Help
+        "show" -> if (userCommand.size > 1) Show(name = userCommand[1], persons) else null
         "find" -> if (userCommand.size > 2) {
                     if (userCommand[1] == "phone") {
-                        Command.Find(phone = userCommand[2], personsList = persons)
+                        Find(phone = userCommand[2], personsList = persons)
                     } else if (userCommand[1] == "email") {
-                        Command.Find(email = userCommand[2], personsList = persons)
+                        Find(email = userCommand[2], personsList = persons)
                     } else null
                 } else null
         else -> null
@@ -47,7 +47,7 @@ private fun readCommand(userCommand: List<String>): Command? =
 
 
 private fun runCommand(userCommand: List<String>): Boolean {
-    when (val parsedCommand = readCommand(userCommand)) {
+    when (val parsedCommand: Command? = readCommand(userCommand)) {
         null -> { println("Wrong command"); Help.printHelp() }
         is Exit -> return false
         is AddEmail -> parsedCommand.getPerson()
