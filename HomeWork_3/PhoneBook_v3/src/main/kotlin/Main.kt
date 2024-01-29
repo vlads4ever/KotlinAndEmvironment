@@ -26,7 +26,7 @@ fun main() {
 private fun readCommand(userCommand: List<String>): Command? =
     when (userCommand[0]) {
         "exit" -> Command.Exit
-        "add" -> if (userCommand.size > 1) {
+        "add" -> if (userCommand.size > 3) {
                     if (userCommand[2] == "phone") {
                         Command.AddPhone(name = userCommand[1], phone = userCommand[3], personsList = persons)
                     } else if (userCommand[2] == "email") {
@@ -35,7 +35,7 @@ private fun readCommand(userCommand: List<String>): Command? =
                 } else null
         "help" -> Command.Help
         "show" -> if (userCommand.size > 1) Command.Show(name = userCommand[1], persons) else null
-        "find" -> if (userCommand.size > 1) {
+        "find" -> if (userCommand.size > 2) {
                     if (userCommand[1] == "phone") {
                         Command.Find(phone = userCommand[2], personsList = persons)
                     } else if (userCommand[1] == "email") {
