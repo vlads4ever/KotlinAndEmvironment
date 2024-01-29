@@ -1,10 +1,10 @@
 class Person(
-    private val name: String,
+    val name: String,
     phone: String? = null,
     email: String? = null
 ) {
-    private var phones: MutableList<String> = mutableListOf()
-    private var emails: MutableList<String> = mutableListOf()
+    var phones: MutableList<String> = mutableListOf()
+    var emails: MutableList<String> = mutableListOf()
 
     init {
         if (phone != null) phones.add(phone)
