@@ -3,8 +3,8 @@ class Person(
     phone: String? = null,
     email: String? = null
 ) {
-    var phones: MutableList<String> = mutableListOf()
-    var emails: MutableList<String> = mutableListOf()
+    val phones: MutableList<String> = mutableListOf()
+    val emails: MutableList<String> = mutableListOf()
 
     init {
         if (phone != null) phones.add(phone)
@@ -26,6 +26,4 @@ class Person(
                 "      phones=$phones,\n" +
                 "      emails=$emails)"
     }
-
-
 }

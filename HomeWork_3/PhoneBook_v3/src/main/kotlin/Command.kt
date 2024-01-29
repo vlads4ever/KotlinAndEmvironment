@@ -5,13 +5,13 @@ sealed interface Command {
 class Find(
     private val email: String? = null,
     private val phone: String? = null,
-    private val personsList: MutableList<Person>
+    private val personsMap: MutableMap<String, Person>
 ): Command {
     override fun isValid(): Boolean = true
 
     fun findPersons(): List<Person>? {
-        if (email != null) return personsList.filter { it.emails.contains(email) }
-        if (phone != null) return personsList.filter { it.phones.contains(phone) }
+        if (email != null) return personsMap.filter { it.value.emails.contains(email) }.values.toList()
+        if (phone != null) return personsMap.filter { it.value.phones.contains(phone) }.values.toList()
         return null
     }
 }
@@ -19,16 +19,16 @@ class Find(
 class AddEmail(
     private val name: String,
     private val email: String,
-    private var personsList: MutableList<Person>
+    private var personsMap: MutableMap<String, Person>
 ): Command {
     override fun isValid(): Boolean =
         email.matches(Regex("""[a-z0-9]+@[a-z]+\.[a-z]{2,3}"""))
 
     fun getPerson() {
         if (isValid()) {
-            val person: Person? = personsList.find { it.name == this.name }
+            val person: Person? = personsMap.values.find { it.name == this.name }
             if (person == null) {
-                personsList.add(Person(name = this.name, email = email))
+                personsMap[name] = Person(name = this.name, email = this.email)
                 println("Person was created")
             } else {
                 person.addEmail(this.email)
@@ -43,16 +43,16 @@ class AddEmail(
 class AddPhone(
     private val name: String,
     private val phone: String,
-    private var personsList: MutableList<Person>
+    private var personsMap: MutableMap<String, Person>
 ): Command {
     override fun isValid(): Boolean =
         phone.matches(Regex("""(\+7|8)[\s(]*\d{3}[)\s]*\d{3}[\s-]?\d{2}[\s-]?\d{2}"""))
 
     fun getPerson() {
         if (isValid()) {
-            val person: Person? = personsList.find { it.name == this.name }
+            val person: Person? = personsMap.values.find { it.name == this.name }
             if (person == null) {
-                personsList.add(Person(name = this.name, phone = this.phone))
+                personsMap[name] = Person(name = this.name, phone = this.phone)
                 println("Person was created")
             } else {
                 person.addPhone(this.phone)
@@ -66,13 +66,13 @@ class AddPhone(
 
 class Show(
     private val name: String,
-    private val personsList: MutableList<Person>
+    private val personsMap: MutableMap<String, Person>
 ): Command {
-    override fun isValid(): Boolean = personsList.isNotEmpty()
+    override fun isValid(): Boolean = personsMap.isNotEmpty()
 
     fun printPerson() {
         if (isValid()) {
-            val person: Person? = personsList.find { it.name == this.name }
+            val person: Person? = personsMap.values.find { it.name == this.name }
             if (person != null) println(person) else println("No such person")
         } else println("Not initialized")
     }

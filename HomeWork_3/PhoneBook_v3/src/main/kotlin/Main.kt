@@ -13,7 +13,7 @@
  * — Добавьте команду find, которая принимает email или телефон и выводит список людей, для которых записано
  * такое значение.
  */
-private var persons: MutableList<Person> = mutableListOf()
+private var persons: MutableMap<String, Person> = mutableMapOf()
 
 fun main() {
     var run: Boolean = true
@@ -28,18 +28,18 @@ private fun readCommand(userCommand: List<String>): Command? =
         "exit" -> Exit
         "add" -> if (userCommand.size > 3) {
                     if (userCommand[2] == "phone") {
-                        AddPhone(name = userCommand[1], phone = userCommand[3], personsList = persons)
+                        AddPhone(name = userCommand[1], phone = userCommand[3], personsMap = persons)
                     } else if (userCommand[2] == "email") {
-                        AddEmail(name = userCommand[1], email = userCommand[3], personsList = persons)
+                        AddEmail(name = userCommand[1], email = userCommand[3], personsMap = persons)
                     } else null
                 } else null
         "help" -> Help
         "show" -> if (userCommand.size > 1) Show(name = userCommand[1], persons) else null
         "find" -> if (userCommand.size > 2) {
                     if (userCommand[1] == "phone") {
-                        Find(phone = userCommand[2], personsList = persons)
+                        Find(phone = userCommand[2], personsMap = persons)
                     } else if (userCommand[1] == "email") {
-                        Find(email = userCommand[2], personsList = persons)
+                        Find(email = userCommand[2], personsMap = persons)
                     } else null
                 } else null
         else -> null
